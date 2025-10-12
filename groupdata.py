@@ -1,9 +1,13 @@
 import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
-from datetime import date
 
-# Fetch the data.
+
+
+
+# colors for plots
+OECD_color = "#2596be"
+UK_color = "orange"
+#fetch the data
 
 def read_retirement_data():
     '''
@@ -21,22 +25,20 @@ OECD_average = retirement_df[retirement_df['Entity'] == 'OECD average'].copy()
 UK_average = retirement_df[retirement_df['Entity'] == 'United Kingdom'].copy()
 
 
-#choosing based on when dates overlap in the dataset for OECD and UK
-#improvement is so that the code dynamically selects when this overlap happens and fills up?
-st_date=date(1970, 1, 1)
-end_date=date(2018, 1, 1) 
-
 #plotting both OECD women and UK same graph
-plot_retirement_women= OECD_average[st_date:end_date].plot(kind='line',y='Average effective age of retirement, women (OECD)', label='"Average effective age of retirement, women (OECD)"')
+plot_retirement_women= OECD_average.plot(kind='line',y='Average effective age of retirement, women (OECD)', label='"Average effective age of retirement, women (OECD)"', color=OECD_color, linestyle='-')
 #ax = puts both lines on the same plot
-UK_average[st_date:end_date].plot(kind='line',y='Average effective age of retirement, women (OECD)', label="Average effective age of retirement, women (UK)" ,ax = plot_retirement_women)
+UK_average.plot(kind='line',y='Average effective age of retirement, women (OECD)', label="Average effective age of retirement, women (UK)" ,ax = plot_retirement_women, color=UK_color, linestyle='--')
 plot_retirement_women.set_title("Retirement Age Over Time - Women (1970-2018)")
 
-
 #plotting both OECD women and UK same graph
-plot_retirement_men= OECD_average[st_date:end_date].plot(kind='line',y='Average effective age of retirement, men (OECD)', label='Average effective age of retirement, men (OECD)')
+plot_retirement_men= OECD_average.plot(kind='line',y='Average effective age of retirement, men (OECD)', label='Average effective age of retirement, men (OECD)', color=OECD_color,  linestyle='-')
+
 #ax = puts both lines on the same plot
-UK_average[st_date:end_date].plot(kind='line',y='Average effective age of retirement, men (OECD)', label='Average effective age of retirement, men (UK)' ,ax = plot_retirement_men)
+UK_average.plot(kind='line',y='Average effective age of retirement, men (OECD)', label='Average effective age of retirement, men (UK)' ,ax = plot_retirement_men , color=UK_color, linestyle='--')
+
+#unhardcode numbers
 plot_retirement_men.set_title("Retirement Age Over Time - Men (1970-2018)")
 
+plt.style.use("seaborn-v0_8")
 plt.show()
