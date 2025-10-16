@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 
 # colors for plots
 colour_1 = "#2596be"
-colour_2 = "orange"
+colour_2 = "#ec9d41"
 
 #thiink about depth of hardocding. SHould i take out paths take out year to a diff name like how much shall i do.
 #fetch the data
@@ -12,17 +12,25 @@ def read_retirement_data():
     '''
     reads Retirement_Age.csv file and parses the year column as a date and sets it as an index
     '''
+    #GET RID OF HARDCODED PATH
     retirement_df = pd.read_csv('GroupProject/Retirement_Age.csv', parse_dates=['Year'],  index_col='Year')
-    return retirement_df
-    
+
+    return  retirement_df
+
 retirement_df =read_retirement_data()
 
+def min_max_index():
+    """getting min max of index"""
+    df = pd.read_csv('GroupProject/Retirement_Age.csv')
+    min_value = df['Year'].min()
+    max_value = df['Year'].max()
+    
+    return min_value, max_value
 
-#Finding the lowest and highest year defo should be done
-min_value = retirement_df['Year'].min()
-max_value = retirement_df['Year'].max()
-print('Min: ', min_value)
-print('Max: ', max_value)
+min_value, max_value = min_max_index()
+print(min_value)
+print(max_value)
+
 
 #mask to get OECD data 
 OECD_average = retirement_df[retirement_df['Entity'] == 'OECD average'].copy()
